@@ -7,4 +7,5 @@ authors.workspace = true
 description = "PenguKit core: RED4 hashing, endian IO, shared errors"
 
 [dependencies]
+libloading = "0.9.0"
 thiserror.workspace = true

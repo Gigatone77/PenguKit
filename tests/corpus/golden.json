@@ -1,0 +1,152 @@
+[
+  {
+    "archive": "basegame_1_engine",
+    "path": "",
+    "hash": "0x0104fd58803b5d66",
+    "sha256": "9965e7db0798b1dbc31e6a363c8a68aedb3ac90f81c92a56b91c02ff10462065"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\_textures\\flares\\flare_01.xbm",
+    "hash": "0x6fc75edaefc63555",
+    "sha256": "c238f16b3dc0fde16d34727d816a8aedc633723dcc5d7c61c8c268f18f89fe96"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\characters\\workspots\\sniffing_drugs\\ch_sniffing_drugs_02.particle",
+    "hash": "0x3570967b136a6abd",
+    "sha256": "eb180f490ced10c3b67cdab15230b036f93406c552330cb41ef07263bd9db744"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\animations\\npc\\gameplay\\man_big\\gang\\unarmed\\mb_gang_unarmed_locomotion_stealth.anims",
+    "hash": "0x862aa5c4d68940c0",
+    "sha256": "84ce051ea8988bfb6d1f13c25a531dfbbf521e9380fdde8822c12a124dac92c9"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\characters\\_damage\\impacts\\character_flesh\\melee\\imp_character_flesh_strong_arms.particle",
+    "hash": "0xdf66af28d7fb89b8",
+    "sha256": "4518d1c687f0b374237e3d8322b6945ac8ab9a8afd648c032cecd7a39f956a90"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\animations\\weapon\\firearms\\handgun\\constitutional_unity\\pma_w_handgun__constitutional_unity.anims",
+    "hash": "0x12765a46eddead9f",
+    "sha256": "ce0b10c2e8976cf25e8000977815fd2c4ee792b1f172604fcb9e9608e7886984"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\characters\\common\\player_base_bodies\\appearances\\arms\\a0_000_fpp__full.app",
+    "hash": "0x1b142c7131ef5e48",
+    "sha256": "8ffc719ea37f396cbe8a6942516c7cf57a792c627305684ebe458e077847a255"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\characters\\common\\player_base_bodies\\player_female_average\\fpp\\t0_000_pwa_fpp__torso.mesh",
+    "hash": "0xb50f16d6a008dc78",
+    "sha256": "781667fa2eab84be2d7adc8fa038cdc9b3177a3526212e24307e3fa5d2641c7d"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\characters\\cyberware\\player\\a0_003__mantisblade\\appearances\\a0_003_wa__mantisblades_edge.app",
+    "hash": "0x21bd6c985913c673",
+    "sha256": "6f19203bafcc4563fc73a48620ffbf25a0003961e1e86f525f60d716d4afe729"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\weapons\\cyberware\\strong_arms\\idle\\w_npc_strong_arms_idle_chemical.effect",
+    "hash": "0x7df050178ee8b93a",
+    "sha256": "3597caeb87493d1eac942f5daa5b2b76ed99f12e27d9becca9d9ff4090706fd7"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\characters\\base_entities\\man_base\\man_base.rig",
+    "hash": "0xc5f417c6257b385d",
+    "sha256": "640f4b0ded28172d4505ab3416bc6c2a221f062d81b97ff756694f2f38af827d"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\characters\\npc\\_common\\status_drugged.particle",
+    "hash": "0x162ab697f572cec4",
+    "sha256": "62d69177165b83f638d59efe53bcbb4ee787a7f0a37b2931e2c54933ddfc7714"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\widgets\\tutorial\\tutorial_panel_journal_1080p.xbm",
+    "hash": "0xabf3afda5ffce304",
+    "sha256": "478e8ec5f0176106302c3a652ee96be92f0b36346ff6456ba3ccbd4a1a415b6f"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\widgets\\tutorial\\tutorial_panel_vendor_1080p.xbm",
+    "hash": "0x4c4f59cf657aeba5",
+    "sha256": "18b296054802d6244327168c478457ff78fbb1133597802e5dd84c7c6e110b16"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\animations\\weapon\\two_handed_hammer\\pma_two_handed_hammer.anims",
+    "hash": "0x0e73afab4ca41f1c",
+    "sha256": "3ccf12026d49e8611c62c59ab6e34b0363c26236c026a20978040a8f624daa5d"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\common\\icons\\codex\\codex_entry0.inkatlas",
+    "hash": "0x1eba0ebc425c9a20",
+    "sha256": "796bff52a89ea8bbcf9d1066c827bc5a6af01976cde50b7dc9532a45e85b6adf"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\prototype_hud.inkhud",
+    "hash": "0x92e4b4da12d59f5e",
+    "sha256": "e4b8b532ac500a1bb6b7b2fcadfb529e8d47d4b9710d0e674eb089e9f368ada5"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\widgets\\hud_corpo\\hud_corpo.xbm",
+    "hash": "0x8d7233de439f773d",
+    "sha256": "cfc5bad67d3ded0b908ae8abf97048a11317b3ca029cd74aa7194418ad5182d3"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\widgets\\crosshair\\launcher\\laumcher.xbm",
+    "hash": "0x1a1a06e81797e134",
+    "sha256": "e7a81f57bafdfa62fe93abdaebc31a414119273069194a59c8a52d8d6ad36013"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\ai\\behaviors\\reactions\\call_police.behavior",
+    "hash": "0x54ca7aeaf591fa6a",
+    "sha256": "820c17c999b67ee562e7b39739a7916de13979a2192cd8fb30ddc36cb4b2c51e"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\fonts\\foreign\\thai\\th_sarabun_new\\th_sarabun_new.inkfontfamily",
+    "hash": "0x20b8a971bfd2e6fe",
+    "sha256": "772f0465444f19d20c1b8274379de0ceb467e6e2aaf4b80ab3d75165ca795060"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\common\\icons\\perks\\perks_icons_1080p.xbm",
+    "hash": "0xba3345a93f309c34",
+    "sha256": "436a14f0ef4ed1a470682356e243b0e3410a842343e8246024f3a49d285777da"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\gameplay\\gui\\quests\\assets\\sq021_farms_map.xbm",
+    "hash": "0x8f692feb11cf52aa",
+    "sha256": "f4590a0afd37ed53a673a1b0c03bb6a73ebb5b541ab04d018437ef531b95c9bb"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\fx\\_textures\\sparks\\fx_sparks_motion_blur_01_2x2_d.xbm",
+    "hash": "0x168ffcd943b903d4",
+    "sha256": "5598a7feb6f16bf2d36b17f292eab75f53ca426fe204af9f0b14a3e9bcbc6296"
+  },
+  {
+    "archive": "basegame_1_engine",
+    "path": "base\\animations\\items\\player\\grenade\\w_explosives_004__incendiary_grenade\\pwa_w_explosives_004__incendiary_grenade.anims",
+    "hash": "0xbfdc3d6964f8580b",
+    "sha256": "0aa5c8be06239f772e18b8a5da0d6cb0cc4f2c5bd520d76e71c4e7c47e2b263e"
+  }
+]

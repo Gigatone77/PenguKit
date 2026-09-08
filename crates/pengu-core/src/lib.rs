@@ -6,6 +6,7 @@
 pub mod crc;
 pub mod error;
 pub mod io;
+pub mod kraken;
 pub mod natives;
 
 pub use error::{PenguError, Result};

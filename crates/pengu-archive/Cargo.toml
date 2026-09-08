@@ -4,4 +4,13 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
-description = "PenguKit archive"
+description = "PenguKit RDAR .archive reader/writer"
+
+[dependencies]
+pengu-core.workspace = true
+libloading = "0.9"
+memmap2 = "0.9.11"
+sha1 = "0.10.6"
+
+[dev-dependencies]
+sha2 = "0.10.8"

@@ -76,17 +76,27 @@ pub fn check_natives() -> Vec<(&'static str, std::result::Result<PathBuf, PenguE
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
+
+    /// Serializes tests that read/write the process-global `PENGU_NATIVE_DIR`
+    /// env var so they never race in parallel.
+    pub(crate) static PENGU_NATIVE_TEST_LOCK: std::sync::Mutex<()> =
+        std::sync::Mutex::new(());
 
     #[test]
     fn override_dir_is_honored() {
+        let _guard = PENGU_NATIVE_TEST_LOCK.lock().unwrap();
         let dir = std::env::temp_dir().join("pengu-native-test");
         std::fs::create_dir_all(&dir).unwrap();
         std::fs::write(dir.join(LIB_KRAKEN), b"fake").unwrap();
+        let prev = std::env::var_os(NATIVE_ENV);
         std::env::set_var(NATIVE_ENV, &dir);
         let found = find_native(LIB_KRAKEN).unwrap();
         assert!(found.is_file());
-        std::env::remove_var(NATIVE_ENV);
+        match prev {
+            Some(v) => std::env::set_var(NATIVE_ENV, v),
+            None => std::env::remove_var(NATIVE_ENV),
+        }
     }
 }

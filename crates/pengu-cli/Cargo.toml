@@ -6,7 +6,12 @@ license.workspace = true
 authors.workspace = true
 description = "PenguKit command-line front-end"
 
+[[bin]]
+name = "pengu"
+path = "src/main.rs"
+
 [dependencies]
 pengu-core.workspace = true
 clap.workspace = true
 anyhow = "1"
+pengu-archive = { version = "0.1.0", path = "../pengu-archive" }

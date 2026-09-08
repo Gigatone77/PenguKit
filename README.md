@@ -17,7 +17,7 @@ Implemented so far:
 | Command | Status |
 |---|---|
 | `pengu version` | works |
-| `pengu hash`    | works (RED4 CRC-64 path hashing) |
+| `pengu hash`    | works (RED4 FNV-1a path hashing + index CRC-64/XZ) |
 | `pengu self-check` | works (verifies bundled natives) |
 | `unbundle` `pack` `archive` | Phase 1 |
 | `info`           | Phase 2 |
