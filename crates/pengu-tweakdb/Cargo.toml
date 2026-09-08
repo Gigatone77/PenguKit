@@ -1,0 +1,7 @@
+[package]
+name = "pengu-tweakdb"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "PenguKit tweakdb"

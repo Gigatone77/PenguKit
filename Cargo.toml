@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/pengu-core",
+    "crates/pengu-archive",
+    "crates/pengu-red4",
+    "crates/pengu-texture",
+    "crates/pengu-mesh",
+    "crates/pengu-tweakdb",
+    "crates/pengu-audio",
+    "crates/pengu-video",
+    "crates/pengu-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-only"
+authors = ["Gigatone77 <j7directline@gmail.com>"]
+
+[workspace.dependencies]
+pengu-core = { path = "crates/pengu-core" }
+pengu-archive = { path = "crates/pengu-archive" }
+pengu-red4 = { path = "crates/pengu-red4" }
+pengu-texture = { path = "crates/pengu-texture" }
+pengu-mesh = { path = "crates/pengu-mesh" }
+pengu-tweakdb = { path = "crates/pengu-tweakdb" }
+pengu-audio = { path = "crates/pengu-audio" }
+pengu-video = { path = "crates/pengu-video" }
+clap = { version = "4", features = ["derive"] }
+thiserror = "1"

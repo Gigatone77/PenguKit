@@ -1,0 +1,33 @@
+PenguKit NOTICE
+================
+
+PenguKit is an independent, from-scratch implementation written in Rust,
+licensed under the GNU General Public License v3.0.
+
+It is informed by, and references as ground truth, the open-source WolvenKit
+project and its lineage (CP77Tools by rfuzzo). Per the GPL-3.0, the authors of
+those projects are acknowledged here:
+
+  * WolvenKit / CP77Tools — community mod editor and command-line toolkit for
+    REDengine 4 (Cyberpunk 2077). GPL-3.0.
+    https://github.com/WolvenKit/WolvenKit
+
+File-format understanding (RDAR archives, CR2W containers, XBM/DDS, TweakDB,
+Wwise WEM, Bink containers) derives from studying these open-source projects
+and the CP2077 modding wiki (wiki.redmodding.org).
+
+Bundled native libraries (shipped in the `natives/` directory):
+
+  * libkraken.so — Kraken compression/decompression by RAD Game Tools,
+    distributed with WolvenKit. Rad Game Tools provides Kraken for free
+    integration in games (https://www.radgametools.com/).
+  * libwwtools.so — Wwise audio conversion tool by the WolvenKit team
+    (https://github.com/WolvenKit/wwise-audio-tools).
+
+Third-party licenses reproduced in full in their respective upstream
+repositories. No Windows binaries, Windows DLLs, or Wine are used anywhere
+in this project.
+
+Cyberpunk 2077 is a product of CD PROJEKT RED. WolvenKit, CP77Tools and
+PenguKit are unaffiliated fan projects. All trademarks belong to their
+respective owners.

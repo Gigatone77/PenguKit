@@ -1,0 +1,12 @@
+[package]
+name = "pengu-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "PenguKit command-line front-end"
+
+[dependencies]
+pengu-core.workspace = true
+clap.workspace = true
+anyhow = "1"
