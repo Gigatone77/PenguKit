@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e2e36"/>
+      <stop offset="1" stop-color="#1c1c22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- tile background -->
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#bg)" stroke="#3c3c47" stroke-width="10"/>
+
+  <!-- penguin body -->
+  <ellipse cx="256" cy="360" rx="112" ry="108" fill="#121216"/>
+  <!-- head -->
+  <circle cx="256" cy="196" r="80" fill="#121216"/>
+
+  <!-- belly -->
+  <ellipse cx="256" cy="356" rx="70" ry="82" fill="#ecedf2"/>
+
+  <!-- eyes -->
+  <circle cx="224" cy="182" r="13" fill="#ffffff"/>
+  <circle cx="288" cy="182" r="13" fill="#ffffff"/>
+  <circle cx="224" cy="184" r="6" fill="#121216"/>
+  <circle cx="288" cy="184" r="6" fill="#121216"/>
+
+  <!-- beak (WolvenKit amber) -->
+  <polygon points="232,208 280,208 256,246" fill="#f58220"/>
+
+  <!-- feet -->
+  <ellipse cx="204" cy="462" rx="34" ry="16" fill="#f58220"/>
+  <ellipse cx="308" cy="462" rx="34" ry="16" fill="#f58220"/>
+
+  <!-- amber under-glow accent -->
+  <rect x="120" y="70" width="272" height="14" rx="7" fill="#f58220" opacity="0.9"/>
+</svg>
