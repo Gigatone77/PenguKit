@@ -36,11 +36,14 @@ pub fn find_native(name: &str) -> Result<PathBuf> {
         }
     }
 
-    // 2. next to the executable (also covers AppImage mounts)
+    // 2. next to the executable (also covers AppImage mounts).
+    //    Accepted layouts: exe_dir/<name> (flat) or exe_dir/natives/<name>.
     if let Ok(exe) = std::env::current_exe() {
         if let Some(dir) = exe.parent() {
-            if let Some(p) = is_native(dir, name) {
-                return Ok(p);
+            for cand in [dir.to_path_buf(), dir.join("natives")] {
+                if let Some(p) = is_native(&cand, name) {
+                    return Ok(p);
+                }
             }
         }
     }

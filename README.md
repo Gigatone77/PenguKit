@@ -10,22 +10,53 @@ modding toolkit for Cyberpunk 2077 (REDengine 4).
 
 ## Status
 
-Active development. Phase 0 (foundation) in progress — see `docs/PLAN.md`.
+Active development. Phase 1 (RDAR archive read/write) complete — see
+`docs/PLAN.md`.
 
 Implemented so far:
 
 | Command | Status |
 |---|---|
+| `pengukit` (GUI) | works — WolvenKit-style GTK4/Libadwaita app |
 | `pengu version` | works |
 | `pengu hash`    | works (RED4 FNV-1a path hashing + index CRC-64/XZ) |
 | `pengu self-check` | works (verifies bundled natives) |
-| `unbundle` `pack` `archive` | Phase 1 |
+| `unbundle` `pack` `archive` | Phase 1 (lossless read/write round-trip verified) |
 | `info`           | Phase 2 |
 | `uncook` `import` `export` | Phases 3/4 |
 | `tweak`          | Phase 5 |
 | `wwise`          | Phase 6 |
 | video / bk2      | Phase 7 |
 | `settings` + packaging | Phase 8 |
+
+## GUI
+
+`pengukit` opens a WolvenKit-style desktop app (dark theme, left navigation
+rail, Home dashboard of action tiles, live console pane):
+
+- **Extract** — unpack a `.archive` into a folder, or list its contents.
+- **Pack** — build a `.archive` from a folder (raw segments, game-valid).
+- **Hash** — RED4 FNV-1a path hash + index CRC-64/XZ.
+- **Self-Check** — verify the bundled native libraries.
+
+It wraps the headless `pengu` CLI, so `pengukit <args>` still runs CLI
+commands (e.g. `pengukit hash base\characters\head_average.mesh`).
+
+Requirements: `python3-gobject`, GTK4 and libadwaita (standard on Bazzite,
+Fedora and Arch; any GTK4 desktop works).
+
+```sh
+./pengukit                # run the GUI from a checkout
+python3 gui/pengu_gui.py --self-test   # headless plumbing check
+```
+
+Install a launcher command + icon + desktop entry (undo anytime with
+`rm ~/.local/bin/pengukit ~/.local/share/applications/pengukit.desktop`):
+
+```sh
+ln -s "$PWD/pengukit" ~/.local/bin/pengukit
+cp icons/pengukit.svg ~/.local/share/icons/hicolor/scalable/apps/pengukit.svg
+```
 
 ## Layout
 
