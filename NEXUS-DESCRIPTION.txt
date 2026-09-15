@@ -1,59 +1,76 @@
-PenguKit 0.1.0 - WolvenKit for Linux (CP2077 toolkit, Rust-native)
-=================================================================
+[size=5]PenguKit - WolvenKit for Linux - Cyberpunk 2077 Toolkit (v0.1.0)[/size]
 
-A from-scratch, Rust-native, Windows-independent modding toolkit for Cyberpunk
-2077 (REDengine 4). No Wine, no .NET, no Windows DLLs. Ships a single tiny
-static-ish binary (`pengu`) that reads and writes the game's `.archive`
-container format exactly as the engine does.
+[size=4]WHAT IT IS[/size]
+PenguKit is a from-scratch, Rust-native, Windows-independent modding toolkit for Cyberpunk 2077 (REDengine 4). No Wine, no .NET, no Windows DLLs. It ships one small glibc x86-64 binary ([font=Courier New]pengu[/font]) that reads and writes the game's [font=Courier New].archive[/font] container format exactly as the engine does, plus a WolvenKit-style GTK4 / Libadwaita desktop GUI ([font=Courier New]pengukit[/font]). Everything is offline - the only runtime library is the Kraken decompressor the game itself ships (see NOTICE), loaded from the bundled [font=Courier New]natives/[/font] folder at runtime via dlopen.
 
-A WolvenKit-style desktop GUI is included - `./pengukit` (or install a
-`pengukit` launcher command + icon + desktop entry, see README): dark theme,
-left navigation rail, Home dashboard with action tiles, live console pane,
-and full Extract / Pack / Hash / Self-Check flows. `pengukit <args>` passes
-through to the headless CLI too.
+[size=4]SAFETY (LOSSLESS VERIFIED)[/size]
+PenguKit never guesses a format and never rewrites anything without checking it. The full unpack -> pack -> unpack round-trip is SHA-256 identical ([font=Courier New]4,115/4,115[/font] files against the base game, 2.8 GiB), and every packed index re-verifies against the game's own CRC-64/XZ algorithm. Extraction is byte-for-byte - nothing is converted, transcoded or altered unless you ask it to.
 
-ZERO-WINDOWS
-------------
-Every toolchain component (archive reader/writer, hashing, native-library
-loading) is plain Rust. The only runtime library needed is the Kraken
-decompressor that the game itself ships with (see NOTICE), loaded at runtime
-via dlopen - no Windows process ever touches your files.
+[size=4]FULL FEATURE LIST - WHAT IT DOES, HOW, AND WHY[/size]
 
-PHASE 1 - ARCHIVE CORE (DONE, VERIFIED)
----------------------------------------
-- `pengu unbundle <archive> [-o OUT] [--list]` - lossless extract of any
-  `.archive` in the PC/console content set. Verified against the full base
-  game: 4,115/4,115 files (2.8 GiB) extracted byte-for-byte, including Kraken-
-  compressed CR2W and raw video (Bink) segments.
-- `pengu pack <dir> [-o OUT]` - rebuilds a valid RDAR archive (raw
-  segments). Full unpack -> pack -> unpack round-trip is SHA-256 identical
-  (4,115/4,115), and the packed index CRC re-verifies against the game's own
-  algorithm.
-- `pengu hash "<path>"` - REDengine-4 path hashing (FNV-1a 64, verified
-  against the game's real file table), plus the index CRC-64/XZ.
+[b]1. UNBUNDLE ([font=Courier New]pengu unbundle[/font])[/b]
+   What: lossless extraction of any [font=Courier New].archive[/font] in the PC/console content set, with an optional [font=Courier New]--list[/font] mode.
+   How: reads the RDAR container natively - header layout, FNV-1a entry hashes and CRC-64/XZ index checksum - and decompresses Kraken-compressed CR2W and raw video (Bink) segments through the game's own decompressor (dlopen, no Windows process).
+   Why: opens game archives the way the engine does, byte-for-byte, without Windows tools.
 
-RESEARCH-LEVEL CORRECTNESS
---------------------------
-Format facts (header layout, FNV-1a entry hashes, CRC-64/XZ index checksum,
-Kraken block structure) were pinned byte-for-byte against
-basegame_1_engine.archive and the WolvenKit reference source - not guessed.
-Known decoder quirk (up to 7 bytes overshoot past the destination) is handled
-inside the reader.
+[b]2. PACK ([font=Courier New]pengu pack[/font])[/b]
+   What: rebuilds a valid RDAR [font=Courier New].archive[/font] from a folder (raw segments).
+   How: reconstructs the container with correct header + FNV-1a index and the game's own CRC-64/XZ checksum.
+   Why: you can unpack, work on the contents, and repack into something the game accepts - round-trip verified.
 
-ROADMAP
--------
-Phases 2-8: CR2W container read/write (`info`), texture decode/encode
-(XBM <-> DDS), mesh <-> glTF, TweakDB YAML <-> bin, Wwise WEM <-> OGG, Bink
-video, settings + packaging.
+[b]3. HASH ([font=Courier New]pengu hash[/font])[/b]
+   What: REDengine-4 path hashing, plus the archive index CRC-64/XZ.
+   How: FNV-1a 64-bit path hashes verified against the game's real file table; the index CRC re-verifies against the game's own algorithm.
+   Why: hashes are ground truth for modding - matching the game's hashes means files actually resolve in-engine.
 
-BUILD
------
-cargo build --release   (see README.md for natives setup)
-Natives are expected at: $PENGU_NATIVE_DIR, next to the binary, or
-$XDG_DATA_HOME/pengu/natives.
+[b]4. SELF-CHECK ([font=Courier New]pengu self-check[/font])[/b]
+   What: verifies the bundled native libraries ([font=Courier New]libkraken.so[/font], [font=Courier New]libwwtools.so[/font]) load and work on your machine.
+   Why: confirms the runtime story holds before you touch real archives.
 
-CREDITS
--------
-GPL-3.0. Based on the documented formats of the game (REDengine 4) with the
-WolvenKit / CP77Tools reference sources consulted for byte layout; Kraken
-decompression via RAD's library (see NOTICE).
+[b]5. GUI ([font=Courier New]pengukit[/font]) - WolvenKit-style desktop app[/b]
+   What: dark-theme GTK4 / Libadwaita app - left navigation rail, Home dashboard of action tiles, live console pane.
+   How: Extract, Pack, Hash and Self-Check flows as clickable tiles; [font=Courier New]pengukit <args>[/font] passes through to the headless CLI.
+   Why: one app for visual workflows and terminal automation - the same engine underneath.
+
+[b]6. HEADLESS CLI[/b]
+   What: every GUI action is also a terminal command ([font=Courier New]pengu unbundle|pack|hash|self-check|version[/font]).
+   Why: scriptable, SSH-able, CI-friendly - no GUI or desktop required.
+
+[b]7. ZERO-WINDOWS, FULLY OFFLINE[/b]
+   What: every toolchain component (archive reader/writer, hashing, native-library loading) is plain Rust. No Wine, no .NET, no Windows DLLs, no network access anywhere.
+   Why: you never need a Windows toolchain to inspect, extract or rebuild CP2077 archives.
+
+[b]8. RESEARCH-LEVEL CORRECTNESS[/b]
+   What: format facts were pinned byte-for-byte against [font=Courier New]basegame_1_engine.archive[/font] and the WolvenKit / CP77Tools reference sources - not guessed.
+   How: header layout, FNV-1a entry hashes, CRC-64/XZ index checksum and Kraken block structure are verified against the real game; a known decoder quirk (up to 7 bytes overshoot past the destination) is handled inside the reader.
+   Why: correctness is the entire point - wrong bytes = broken archives.
+
+[b]9. ROADMAP[/b]
+   Phases 2-8 planned: CR2W containers ([font=Courier New]info[/font]), textures (XBM <-> DDS), meshes ([font=Courier New].mesh[/font] <-> glTF), TweakDB (YAML <-> bin), audio (WEM <-> OGG), video (Bink [font=Courier New].bk2[/font]), settings + packaging.
+
+[line]
+[size=4]INSTALL[/size]
+1. Extract [font=Courier New]PenguKit-0.1.0-linux-x86_64.zip[/font] anywhere - keep [font=Courier New]natives/[/font] beside the binary, it is self-contained.
+2. Run [font=Courier New]./pengukit[/font] for the GUI, or [font=Courier New]./pengu <command>[/font] for the CLI.
+3. Optional launcher command + icon + desktop entry:
+   [font=Courier New]ln -s "$PWD/pengukit" ~/.local/bin/pengukit[/font]
+   [font=Courier New]cp icons/pengukit.svg ~/.local/share/icons/hicolor/scalable/apps/pengukit.svg[/font]
+
+[size=4]REQUIREMENTS / DISTRO COMPATIBILITY (x86-64)[/size]
+One build exists: glibc, x86-64. The [font=Courier New]pengu[/font] CLI needs glibc >= 2.34; the bundled [font=Courier New]libwwtools.so[/font] needs glibc >= 2.38.
+- WORKS: Arch / Manjaro, Fedora 39+, Ubuntu 23.10+ (incl. 24.04 LTS), Debian 13+, openSUSE Tumbleweed, and any distro on glibc >= 2.38.
+- PARTIAL (CLI runs; anything using [font=Courier New]libwwtools.so[/font] fails): Ubuntu 22.04 LTS / 23.04, Debian 12, Fedora 34-38, RHEL 9 / CentOS Stream 9 (glibc 2.34-2.37).
+- DOES NOT WORK: Ubuntu <= 21.10, Debian <= 11, openSUSE Leap 15.x, RHEL <= 8 / CentOS 7-8; all musl distros (Alpine); any 32-bit or ARM/RISC-V CPU.
+Check your machine with: [font=Courier New]ldd --version[/font].
+The GUI additionally needs [font=Courier New]python3-gobject[/font], GTK4 and [font=Courier New]libadwaita[/font] (Debian/Ubuntu: [font=Courier New]sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1[/font]).
+
+[size=4]NOT REQUIRED[/size]
+No Windows machine, no Wine, no .NET, no network, no game running.
+
+[size=4]LINKS[/size]
+GitHub: https://github.com/Gigatone77/PenguKit (source, issues, roadmap - GPL-3.0).
+
+[size=4]NOTES[/size]
+- Linux x86-64 only in this release; the zip's README has the full Requirements & Distro Compatibility table.
+- Kraken decompression via RAD's library at runtime (see [font=Courier New]NOTICE[/font]); reference sources (WolvenKit / CP77Tools) credited in NOTICE.
+- GPL-3.0 licensed.
