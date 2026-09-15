@@ -1,0 +1,52 @@
+name: Upload PenguKit to Nexus Mods
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version string (e.g. 0.1.0)'
+        required: true
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ github.event.release.tag_name || inputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Stage bundle
+        run: |
+          mkdir -p bundle/docs
+          cp target/release/pengu LICENSE NOTICE README.md pengukit bundle/
+          cp -r icons gui natives bundle/
+          cp docs/PLAN.md bundle/docs/
+          rm -rf bundle/gui/__pycache__
+
+      - name: Zip bundle
+        run: |
+          cd bundle
+          zip -r "../PenguKit-${VERSION}-linux-x86_64.zip" .
+
+      - name: Set Nexus file description
+        id: desc
+        run: |
+          echo "description<<EOF" >> "$GITHUB_OUTPUT"
+          cat NEXUS-DESCRIPTION.txt >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Upload to Nexus Mods
+        uses: Nexus-Mods/upload-action@v1.0.0-beta.10
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ vars.NEXUSMODS_FILE_ID_PENGUKIT }}
+          filename: PenguKit-${{ env.VERSION }}-linux-x86_64.zip
+          version: ${{ env.VERSION }}
+          display_name: PenguKit ${{ env.VERSION }}
+          description: ${{ steps.desc.outputs.description }}
+          category: main

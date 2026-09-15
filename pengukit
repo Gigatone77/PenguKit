@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# pengukit - PenguKit launcher.
+#   pengukit              -> open the GUI (WolvenKit-style, GTK4/Libadwaita)
+#   pengukit <args>       -> pass through to the headless `pengu` CLI
+set -euo pipefail
+
+HERE="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+
+if [[ $# -eq 0 ]]; then
+  if [[ -z "${PENGU_BIN:-}" ]]; then
+    export PENGU_BIN=""
+  fi
+  exec python3 "$HERE/gui/pengu_gui.py"
+fi
+
+BIN="$HERE/pengu"
+[[ -x "$BIN" ]] || BIN="$HERE/target/release/pengu"
+[[ -x "$BIN" ]] || BIN="$HERE/target/debug/pengu"
+[[ -x "$BIN" ]] || BIN="$(command -v pengu)"
+
+export PENGU_NATIVE_DIR="${PENGU_NATIVE_DIR:-$HERE/natives}"
+exec "$BIN" "$@"

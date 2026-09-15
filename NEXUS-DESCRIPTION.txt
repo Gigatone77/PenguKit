@@ -1,0 +1,59 @@
+PenguKit 0.1.0 - WolvenKit for Linux (CP2077 toolkit, Rust-native)
+=================================================================
+
+A from-scratch, Rust-native, Windows-independent modding toolkit for Cyberpunk
+2077 (REDengine 4). No Wine, no .NET, no Windows DLLs. Ships a single tiny
+static-ish binary (`pengu`) that reads and writes the game's `.archive`
+container format exactly as the engine does.
+
+A WolvenKit-style desktop GUI is included - `./pengukit` (or install a
+`pengukit` launcher command + icon + desktop entry, see README): dark theme,
+left navigation rail, Home dashboard with action tiles, live console pane,
+and full Extract / Pack / Hash / Self-Check flows. `pengukit <args>` passes
+through to the headless CLI too.
+
+ZERO-WINDOWS
+------------
+Every toolchain component (archive reader/writer, hashing, native-library
+loading) is plain Rust. The only runtime library needed is the Kraken
+decompressor that the game itself ships with (see NOTICE), loaded at runtime
+via dlopen - no Windows process ever touches your files.
+
+PHASE 1 - ARCHIVE CORE (DONE, VERIFIED)
+---------------------------------------
+- `pengu unbundle <archive> [-o OUT] [--list]` - lossless extract of any
+  `.archive` in the PC/console content set. Verified against the full base
+  game: 4,115/4,115 files (2.8 GiB) extracted byte-for-byte, including Kraken-
+  compressed CR2W and raw video (Bink) segments.
+- `pengu pack <dir> [-o OUT]` - rebuilds a valid RDAR archive (raw
+  segments). Full unpack -> pack -> unpack round-trip is SHA-256 identical
+  (4,115/4,115), and the packed index CRC re-verifies against the game's own
+  algorithm.
+- `pengu hash "<path>"` - REDengine-4 path hashing (FNV-1a 64, verified
+  against the game's real file table), plus the index CRC-64/XZ.
+
+RESEARCH-LEVEL CORRECTNESS
+--------------------------
+Format facts (header layout, FNV-1a entry hashes, CRC-64/XZ index checksum,
+Kraken block structure) were pinned byte-for-byte against
+basegame_1_engine.archive and the WolvenKit reference source - not guessed.
+Known decoder quirk (up to 7 bytes overshoot past the destination) is handled
+inside the reader.
+
+ROADMAP
+-------
+Phases 2-8: CR2W container read/write (`info`), texture decode/encode
+(XBM <-> DDS), mesh <-> glTF, TweakDB YAML <-> bin, Wwise WEM <-> OGG, Bink
+video, settings + packaging.
+
+BUILD
+-----
+cargo build --release   (see README.md for natives setup)
+Natives are expected at: $PENGU_NATIVE_DIR, next to the binary, or
+$XDG_DATA_HOME/pengu/natives.
+
+CREDITS
+-------
+GPL-3.0. Based on the documented formats of the game (REDengine 4) with the
+WolvenKit / CP77Tools reference sources consulted for byte layout; Kraken
+decompression via RAD's library (see NOTICE).
