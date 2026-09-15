@@ -4,9 +4,11 @@
 modding toolkit for Cyberpunk 2077 (REDengine 4).
 
 - Zero Windows: no Wine, no `.dll`, no `.exe`, no mixed-mode C++/CLI.
-- Portable: single glibc x86_64 binary + bundled natives, runs unmodified on
-  essentially every mainstream Linux distro.
-- Distributed as tar.gz, AppImage, Flatpak and Homebrew.
+- Portable: single glibc x86_64 binary + bundled natives — see
+  "Requirements & Distro Compatibility" below for exactly which distros it
+  runs on (and which it does not).
+- Distributed as a zip (see "Build"); AppImage/Flatpak/Homebrew packaging is
+  planned.
 
 ## Status
 
@@ -29,6 +31,43 @@ Implemented so far:
 | video / bk2      | Phase 7 |
 | `settings` + packaging | Phase 8 |
 
+## Requirements & Distro Compatibility
+
+PenguKit ships **one build**: `PenguKit-<version>-linux-x86_64.zip` (glibc,
+x86-64). It does **not** run on:
+
+- 32-bit (i686) or non-x86-64 CPUs (ARM/aarch64, RISC-V, …) — no build exists.
+- musl systems (Alpine, Adelie, …) — the binary and bundled natives are
+  glibc-linked and cannot dlopen on musl.
+
+Minimum glibc versions, measured from the shipped binaries:
+
+| Component | Requires |
+|---|---|
+| `pengu` CLI | glibc ≥ 2.34 |
+| bundled `libwwtools.so` | glibc ≥ 2.38 (any command that loads it) |
+
+So, in practice on x86-64:
+
+| Status | Distros |
+|---|---|
+| ✔ **Works** | Any distro on glibc ≥ 2.38: Arch / Manjaro, Fedora 39+, Ubuntu 23.10+ (incl. **24.04 LTS**), Debian 13+, openSUSE Tumbleweed and current rolling releases. |
+| ⚠ **Partial** — CLI runs, but anything using `libwwtools.so` fails | glibc 2.34–2.37: Ubuntu 22.04 LTS / 23.04, Debian 12, Fedora 34–38, RHEL 9 / CentOS Stream 9. |
+| ✘ **Does not work** | glibc < 2.34: Ubuntu ≤ 21.10, Debian ≤ 11, openSUSE Leap 15.x, RHEL ≤ 8 / CentOS 7–8. Also musl (Alpine) and any non-x86-64 CPU, regardless of glibc. |
+
+The authoritative check is one command on the target machine:
+
+```sh
+ldd --version
+```
+
+The **GUI** (`pengukit`) additionally needs `python3-gobject` (PyGObject),
+**GTK4** and **libadwaita**. The headless `pengu` CLI does not need any of these
+and works on any machine that satisfies the table above.
+
+- Fedora / Bazzite / Arch: usually already installed on GTK desktops.
+- Debian / Ubuntu: `sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1`
+
 ## GUI
 
 `pengukit` opens a WolvenKit-style desktop app (dark theme, left navigation
@@ -42,8 +81,7 @@ rail, Home dashboard of action tiles, live console pane):
 It wraps the headless `pengu` CLI, so `pengukit <args>` still runs CLI
 commands (e.g. `pengukit hash base\characters\head_average.mesh`).
 
-Requirements: `python3-gobject`, GTK4 and libadwaita (standard on Bazzite,
-Fedora and Arch; any GTK4 desktop works).
+GUI requirements are listed under "Requirements & Distro Compatibility".
 
 ```sh
 ./pengukit                # run the GUI from a checkout
