@@ -36,9 +36,10 @@ jobs:
       - name: Set Nexus file description
         id: desc
         run: |
-          echo "description<<EOF" >> "$GITHUB_OUTPUT"
+          echo "description<<NEXUS_DESC" >> "$GITHUB_OUTPUT"
           cat NEXUS-DESCRIPTION.txt >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo >> "$GITHUB_OUTPUT"
+          echo "NEXUS_DESC" >> "$GITHUB_OUTPUT"
 
       - name: Upload to Nexus Mods
         uses: Nexus-Mods/upload-action@v1.0.0-beta.10
