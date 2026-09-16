@@ -29,7 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(HERE, ".."))
 
 APP_ID = "org.pengukit.app"
-ACCENT = "#f58220"  # WolvenKit orange/amber
+ACCENT = "#f5a623"  # shared EXALTED amber (matches biblelearn/EXALTED)
 
 
 # --------------------------------------------------------------------------- #
@@ -102,14 +102,14 @@ class Runner:
 # --------------------------------------------------------------------------- #
 CSS = """
 @define-color accent %s;
-@define-color c-base #1d1d23;
-@define-color c-panel #2b2b33;
-@define-color c-panel2 #33333d;
-@define-color c-rail #26262d;
-@define-color c-border #3c3c47;
-@define-color c-text #e6e6ea;
-@define-color c-muted #9a9aa5;
-@define-color c-console #131318;
+@define-color c-base #0d1117;
+@define-color c-panel #161b22;
+@define-color c-panel2 #21262d;
+@define-color c-rail #131820;
+@define-color c-border #30363d;
+@define-color c-text #e6edf3;
+@define-color c-muted #8b949e;
+@define-color c-console #0d1117;
 
 window { background-color: @c-base; color: @c-text; }
 
@@ -121,7 +121,7 @@ window { background-color: @c-base; color: @c-text; }
 }
 .rail-button:hover { background-color: @c-panel2; }
 .rail-button:checked {
-  background-color: alpha(@accent, 0.16); color: #ffd9b0;
+  background-color: alpha(@accent, 0.16); color: #ffd479;
   box-shadow: inset 0 0 0 1px alpha(@accent, 0.9);
 }
 .brand-dot { background-color: @accent; border-radius: 999px; }
@@ -129,8 +129,8 @@ window { background-color: @c-base; color: @c-text; }
 .home-title { font-size: 34px; font-weight: 800; }
 .home-subtitle { color: @c-muted; font-size: 14px; }
 .chip { border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 700; }
-.chip-ok { background-color: alpha(#4fbd6b, 0.16); color: #7ee29a; }
-.chip-bad { background-color: alpha(#e5484d, 0.18); color: #ff9b9e; }
+.chip-ok { background-color: alpha(#3fb950, 0.16); color: #3fb950; }
+.chip-bad { background-color: alpha(#f85149, 0.18); color: #f85149; }
 
 .tile {
   background-color: @c-panel; border: 1px solid @c-border; border-radius: 12px;
@@ -147,7 +147,7 @@ window { background-color: @c-base; color: @c-text; }
 .field-label { color: @c-muted; font-size: 12px; font-weight: 700; }
 
 .output {
-  background-color: @c-console; color: #c9d1ff; font-family: "JetBrains Mono",
+  background-color: @c-console; color: #79c0ff; font-family: "JetBrains Mono",
   "Fira Code", "DejaVu Sans Mono", monospace; font-size: 12px; padding: 10px;
 }
 .output-label { color: @c-muted; font-weight: 800; font-size: 12px; }
