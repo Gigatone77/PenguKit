@@ -218,13 +218,6 @@ class PenguKitWindow(Adw.ApplicationWindow):
         ]
         rail = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2, css_classes=["rail"])
 
-        brand = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8, css_classes=["rail-brand"])
-        dot = Gtk.Box(css_classes=["brand-dot"])
-        dot.set_size_request(10, 10)
-        brand.append(dot)
-        brand.append(Gtk.Label(label="PenguKit", css_classes=["page-header"]))
-        rail.append(brand)
-
         self.rail_buttons = []
         self.rail_by_page = {}
         for icon, label, page in labels:
@@ -268,8 +261,14 @@ class PenguKitWindow(Adw.ApplicationWindow):
 
     # -------------------------------------------------------------- build ----
     def _build(self):
-        root = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        root.append(self._rail())
+        toolbar = Adw.ToolbarView()
+
+        header = Adw.HeaderBar()
+        header.set_title_widget(Gtk.Label(label="PenguKit"))
+        toolbar.add_top_bar(header)
+
+        body = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        body.append(self._rail())
 
         self.stack = Gtk.Stack(transition_type=Gtk.StackTransitionType.CROSSFADE)
         self.stack.add_named(self._home_page(), "home")
@@ -278,8 +277,9 @@ class PenguKitWindow(Adw.ApplicationWindow):
         self.stack.add_named(self._hash_page(), "hash")
         self.stack.add_named(self._check_page(), "check")
         self.stack.set_visible_child_name("home")
-        root.append(self.stack)
-        self.set_content(root)
+        body.append(self.stack)
+        toolbar.set_content(body)
+        self.set_content(toolbar)
 
     def _home_page(self):
         page = Gtk.ScrolledWindow(vexpand=True)
